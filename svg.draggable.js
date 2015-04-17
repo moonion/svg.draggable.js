@@ -1,4 +1,16 @@
-(function() {
+( function (root, factory) {
+    // UMD wrapper
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(['svg.core'], factory);
+    } else if (typeof exports !== 'undefined') {
+        // Node/CommonJS
+        module.exports = factory(require('svg.core'));
+    } else {
+        // Browser globals
+        factory(root.SVG);
+    }
+}(this, function (SVG) {
     SVG.extend(SVG.Element, {
         // Make element draggable
         // Constraint might be a object (as described in readme.md) or a function in the form "function (x, y)" that gets called before every move.
@@ -193,4 +205,5 @@
             return this;
         }
     });
-}).call(this);
+return SVG;
+}));
